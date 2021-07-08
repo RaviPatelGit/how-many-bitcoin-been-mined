@@ -57,13 +57,25 @@ const getSupply = (num) => {
     parent.append(child); 
 
     child = document.createElement('p');
-    s = 'Percentage of Bitcoin to be mined: ' + (100-((supply*100)/21000000)) + '%';
+    s = 'Percentage of Bitcoin remains to mine: ' + (100-((supply*100)/21000000)) + '%';
     child.innerText = s;
     parent.append(child); 
     
+    child = document.createElement('p');
+    s = 'Yearly inflation rate today: ' + inflationRate(num) + '%';
+    child.innerText = s;
+    parent.append(child); 
 
 
     return supply;
+}
+
+const inflationRate = (num) => {
+    let epocs = Math.floor(num/210000)
+    let perc = Math.pow(2,epocs);
+    let current_epoc = (num-210000*Math.floor(num/210000))/210000;
+    perc += current_epoc;
+    return (100 / (Math.pow(2, perc)/4)); 
 }
 
 // Math.ceil()
