@@ -45,6 +45,24 @@ const getSupply = (num) => {
     parent.append(child); 
 
 
+    child = document.createElement('p');
+    let s ='Since new supply reduces by 50% every four year, there is upper limit of 21,000,000 Bitcoin on total supply.';
+    child.innerText = s;
+    parent.append(child); 
+
+
+    child = document.createElement('p');
+    s = 'Percentage of Bitcoin already mined: ' + ((supply*100)/21000000) + '%';
+    child.innerText = s;
+    parent.append(child); 
+
+    child = document.createElement('p');
+    s = 'Percentage of Bitcoin to be mined: ' + (100-((supply*100)/21000000)) + '%';
+    child.innerText = s;
+    parent.append(child); 
+    
+
+
     return supply;
 }
 
