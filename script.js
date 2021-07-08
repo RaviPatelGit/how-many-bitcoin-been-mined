@@ -14,10 +14,9 @@ var HttpClient = function() {
 
 var client = new HttpClient();
 client.get('https://blockstream.info/api/blocks/tip/height', function(response) {
-    // do something with response
     let span = document.querySelector('span')
     span.innerText = response;
-    console.log(getSupply(630001));
+    console.log(getSupply(response));
 });
 
 const getSupply = (num) => {
@@ -28,17 +27,20 @@ const getSupply = (num) => {
 
     let supply = 0
     for (let i = 0; i < Math.floor(years/4); i++) {
-        console.log(i)
         supply += 210000 * (50/Math.pow(2,i));
         let child = document.createElement('p');
-        child.innerText = 'New Supply during year ' + (2009+(i*4)) + ' to ' + (2009+((i+1)*4) + ' : ' + 210000 * (50/Math.pow(2,i)));
+        child.innerText = 'New supply during year ' + (2009+(i*4)) + ' to ' + (2009+((i+1)*4)) + ' : ' + 210000 * (50/Math.pow(2,i));
         parent.append(child);
     }
 
-
-    supply += (50 / Math.pow(2, Math.floor((years/4)))) *(num - 210000*(Math.floor(years/4)));
+    let lastHalv = (50 / Math.pow(2, Math.floor((years/4)))) *(num - 210000*(Math.floor(years/4)));
     
+    supply += lastHalv;
     let child = document.createElement('p');
+    child.innerText = 'New supply since last halving: ' + lastHalv;
+    parent.append(child); 
+
+    child = document.createElement('p');
     child.innerText = 'Total Supply till now: ' + supply;
     parent.append(child); 
 
